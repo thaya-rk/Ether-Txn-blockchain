@@ -7,9 +7,14 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@nextui-org/react": "^2.4.6",
+    "ajv": "^8.17.1",
     "axios": "^1.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
-    "mongoose": "^6.0.0",
-    "dotenv": "^16.0.0"
+    "mongoose": "^6.0.0"
   }
 }
