@@ -1,4 +1,4 @@
-// Function to calculate total expenses from transactions
+
 function calculateTotalExpenses(transactions) {
     return transactions.reduce((total, tx) => {
         // Convert gasUsed * gasPrice from Wei to Ether

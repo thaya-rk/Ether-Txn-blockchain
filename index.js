@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require('express')
+const cors = require('cors'); 
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -9,6 +10,8 @@ const expenseRoutes = require('./routes/expenses'); // New route
 
 // Connect to MongoDB
 connectDB();
+
+app.use(cors()); 
 
 // Middleware
 app.use(express.json());
