@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
@@ -63,9 +63,8 @@ const Blob = styled('div')({
 
 // Helper function to validate Ethereum address
 const isValidEthereumAddress = (address) => {
-  const sanitizedAddress = address.replace(/\s+/g, ''); // Remove all spaces
   const regex = /^0x[a-fA-F0-9]{40}$/;
-  return regex.test(sanitizedAddress);
+  return regex.test(address.replace(/\s+/g, '')); // Remove spaces before validation
 };
 
 // CSS animation for fading in result boxes
@@ -82,10 +81,41 @@ const resultAnimation = `
   }
 `;
 
+const DigitalClock = styled('div')({
+  position: 'absolute',
+  bottom: '10px',
+  right: '10px',
+  color: '#e0e0e0',
+  fontFamily: '"Poppins", sans-serif',
+  background: 'rgba(0, 0, 0, 0.5)',
+  padding: '16px',
+  borderRadius: '4px',
+  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+  backdropFilter: 'blur(18px)',
+  WebkitBackdropFilter: 'blur(18px)',
+  border: '1px solid rgba(255, 255, 255, 0.18)',
+  animation: 'fadeInBox 0.5s ease-out',
+  '&:hover': {
+    transform: 'scale(1.1)',
+    transition: 'transform 0.3s ease-in-out',
+  },
+  textAlign: 'center',
+  width: '150px',
+});
+
 const EthereumExpenses = () => {
   const [address, setAddress] = useState('');
   const [expenses, setExpenses] = useState(null);
   const [error, setError] = useState(null);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const fetchExpenses = async (address) => {
     try {
@@ -194,7 +224,12 @@ const EthereumExpenses = () => {
         )}
       </Card>
       <Blob />
-      <style>{resultAnimation}</style> {/* Inject CSS animation */}
+      <DigitalClock>
+        <Typography variant="h6" style={{ fontWeight: '700', fontSize: '1.5rem' }}>
+          {time.toLocaleTimeString()}
+        </Typography>
+      </DigitalClock>
+      <style>{resultAnimation}</style>
     </Container>
   );
 };
