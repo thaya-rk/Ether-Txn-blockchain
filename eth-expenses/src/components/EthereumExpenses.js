@@ -63,9 +63,9 @@ const Blob = styled('div')({
 
 // Helper function to validate Ethereum address
 const isValidEthereumAddress = (address) => {
+  const sanitizedAddress = address.replace(/\s+/g, ''); // Remove all spaces
   const regex = /^0x[a-fA-F0-9]{40}$/;
-  
-  return regex.test(address);
+  return regex.test(sanitizedAddress);
 };
 
 // CSS animation for fading in result boxes
